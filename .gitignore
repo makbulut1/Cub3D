@@ -1,0 +1,12 @@
+# *.o
+# /mlx/*.o
+# cub3d
+# mlx/libmlx.a
+# font.xcf
+
+/mlx/*
+!/mlx/*.c
+!/mlx/Makefile
+!Makefile
+cub3d
+mlx.tgz
