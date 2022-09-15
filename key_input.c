@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   key_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 08:06:49 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/15 23:43:01 by makbulut         ###   ########.fr       */
+/*   Created: 2022/09/15 23:12:51 by makbulut          #+#    #+#             */
+/*   Updated: 2022/09/15 23:28:55 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "cub3d.h"
+#include "42-Libft/libft.h"
+#include "mlx/mlx.h"
 
-typedef struct cub3d
+int	close_screen(t_cub3d *cub3d)
 {
-	int			x;
-	void	*mlx;
-	void	*win;
-}			t_cub3d;
+	mlx_destroy_window(cub3d->mlx, cub3d->win);
+	exit(1);
+}
 
-typedef struct s_map
+int	key_hook(int key)
 {
-	int		fd;
-	char	*map_values;
-	char	*av;
-	int		map_len;
-}				t_map;
+	if (key == 53)
+	{
+		ft_putendl_fd("Game Exited", 1);
+		exit(1);
+	}
+	return (0);
+}
 
-int		map_extension_check(char *av);
-t_map	*map_init(t_map *map, char *av);
-void	key_input(t_cub3d *cub3d);
-
-#endif
+void	key_input(t_cub3d *cub3d)
+{
+	mlx_hook(cub3d->win, 17, 1L << 17, close_screen, cub3d);
+	mlx_hook(cub3d->win, 2, 1L << 0, key_hook, cub3d);
+}

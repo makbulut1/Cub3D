@@ -6,14 +6,13 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 16:53:06 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/15 22:31:52 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/15 23:45:18 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42-Libft/libft.h"
 #include "cub3d.h"
 #include <fcntl.h>
-#include "42-Get_next_line/get_next_line.h"
 #include <stdio.h>
 
 int	map_extension_check(char *av)
@@ -61,12 +60,9 @@ int	load_map(char *map_name, char **map)
 
 t_map	*map_init(t_map *map, char *av)
 {
-	char	*tmp;
-
 	map = malloc(sizeof(t_map) * 1);
 	map->av = av;
 	map->fd = open(map->av, O_RDONLY);
-	tmp = map->map_values;
 	if ((map_extension_check(map->av)))
 	{
 		ft_putendl_fd("\033[31mError\nMap extension not '.cub'\x1b[0m", 2);
@@ -77,5 +73,6 @@ t_map	*map_init(t_map *map, char *av)
 		ft_putendl_fd("\033[31mError\nBad file.\x1b[0m", 2);
 		exit(1);
 	}
+	map->map_len = ft_strlen(map->map_values);
 	return (map);
 }

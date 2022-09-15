@@ -4,11 +4,9 @@
 !*.c
 !*.h
 !map*
-mlx.tgz
 /mlx/*
 !/mlx/*.c
 !/mlx/*.h
 !/mlx/*.m
 !/mlx/Makefile
-!/42-Get_next_line
 !/42-Libft
