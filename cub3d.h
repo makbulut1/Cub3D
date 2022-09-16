@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:06:49 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/15 23:43:01 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/16 20:34:34 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct cub3d
 typedef struct s_map
 {
 	int		fd;
+	char	**all_map_file;
 	char	*map_values;
 	char	*av;
 	int		map_len;

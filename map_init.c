@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_check.c                                        :+:      :+:    :+:   */
+/*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 16:53:06 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/15 23:45:18 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/16 20:37:34 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,15 @@ t_map	*map_init(t_map *map, char *av)
 	map->fd = open(map->av, O_RDONLY);
 	if ((map_extension_check(map->av)))
 	{
-		ft_putendl_fd("\033[31mError\nMap extension not '.cub'\x1b[0m", 2);
+		ft_putendl_fd("Error\nMap extension not '.cub'", 2);
 		exit(1);
 	}
 	if (load_map(map->av, &map->map_values))
 	{
-		ft_putendl_fd("\033[31mError\nBad file.\x1b[0m", 2);
+		ft_putendl_fd("Error\nBad file.", 2);
 		exit(1);
 	}
 	map->map_len = ft_strlen(map->map_values);
+	map->all_map_file = ft_split(map->map_values, '\n');
 	return (map);
 }

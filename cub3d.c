@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:06:11 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/15 23:45:09 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/16 20:38:00 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int ac, char **av)
 
 	map = NULL;
 	map = map_init(map, av[1]);
+
 	if (ac == 2)
 	{
 		cub3d_loop(map);
