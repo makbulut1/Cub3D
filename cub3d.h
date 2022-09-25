@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:06:49 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/16 20:34:34 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/16 20:42:45 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 typedef struct cub3d
 {
 	int			x;
-	void	*mlx;
-	void	*win;
+	void		*mlx;
+	void		*win;
 }			t_cub3d;
 
 typedef struct s_map
@@ -27,6 +27,12 @@ typedef struct s_map
 	char	*map_values;
 	char	*av;
 	int		map_len;
+	char	*NO;
+	char	*SO;
+	char	*WE;
+	char	*EA;
+	char	*F;
+	char	*C;
 }				t_map;
 
 int		map_extension_check(char *av);

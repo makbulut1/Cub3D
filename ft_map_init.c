@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 16:53:06 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/24 19:09:31 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/19 19:56:23 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_map_check(t_map *map)
 	i = 0;
 	while (map->all_map_file[i])
 	{
-		while (map->all_map_file[i][j])
+		while (map->all_map_file[i][j] )
 		{
 			printf("%c", map->all_map_file[i][j]);
 			j++;
