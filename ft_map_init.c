@@ -6,24 +6,14 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 16:53:06 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/25 19:33:24 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/27 22:20:18 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42-Libft/libft.h"
+#include "Libft/libft.h"
 #include "cub3d.h"
 #include <fcntl.h>
 #include <stdio.h>
-
-int	map_extension_check(char *av)
-{
-	if (ft_memcmp(ft_strrchr(av, '.'), ".cub", 4))
-	{
-		ft_putendl_fd("\033[31mMap extension not '.cub'\x1b[0m", 2);
-		exit(1);
-	}
-	return (0);
-}
 
 void	buffer_update(char **buffer, char **map)
 {
@@ -54,50 +44,26 @@ int	load_map(char *map_name, char **map)
 	close(fd);
 	free (buffer);
 	if (fd == -1 || read_call == -1)
-		return (1);
+		return (-1);
 	return (0);
 }
 
-void	ft_map_check(t_map *map)
+int	map_init(char *map_name, char **map_values)
 {
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (map->all_map_file[i])
-	{
-		while (map->all_map_file[i][j] )
-		{
-			printf("%c", map->all_map_file[i][j]);
-			j++;
-		}
-		i++;
-	}
-}
-
-t_map	*map_init(t_map *map, char *av)
-{
-	map = malloc(sizeof(t_map) * 1);
-	map->av = av;
-	map->fd = open(map->av, O_RDONLY);
-	if ((map_extension_check(map->av)))
+	if (ft_strchr(map_name, '.') <= 0 || ft_memcmp(ft_strrchr(map_name, '.'), ".cub", 4) != 0)
 	{
 		ft_putendl_fd("Error\nMap extension not '.cub'", 2);
 		exit(1);
 	}
-	if (load_map(map->av, &map->map_values))
+	if (load_map(map_name, map_values) == -1)
 	{
 		ft_putendl_fd("Error\nBad file.", 2);
 		exit(1);
 	}
-	if (map->map_values[0] <= 32 && map->map_values[0] >= 9)
+	if (*map_values[0] < 32 && *map_values[0] >= 9)
 	{
 		ft_putendl_fd("Error\nBad file.", 2);
 		exit(1);
 	}
-	map->map_len = ft_strlen(map->map_values);
-	map->all_map_file = ft_split(map->map_values, '\n');
-	ft_map_check(map);
-	return (map);
+	return (0);
 }

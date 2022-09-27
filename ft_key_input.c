@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_input.c                                        :+:      :+:    :+:   */
+/*   ft_key_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 23:12:51 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/15 23:28:55 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/27 22:20:18 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "42-Libft/libft.h"
+#include "Libft/libft.h"
 #include "mlx/mlx.h"
 
 int	close_screen(t_cub3d *cub3d)

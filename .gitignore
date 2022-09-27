@@ -9,7 +9,7 @@
 !/mlx/*.h
 !/mlx/*.m
 !/mlx/Makefile
-/42-Libft/*
-!/42-Libft/*.c
-!/42-Libft/*.h
-!/42-Libft/Makefile
+Libft/*
+!/Libft/*.c
+!/Libft/*.h
+!/Libft/Makefile

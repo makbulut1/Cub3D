@@ -10,12 +10,12 @@ MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit mlx/libmlx.a
 
 42-GET_NEXT_LINE = 42-Get_next_line/get_next_line.c 42-Get_next_line/get_next_line_utils.c
 
-42-Libft = 42-Libft/libft.a
+Libft = Libft/libft.a
 
 all : $(OBJ)
 	@make -C mlx/
-	@make -C 42-Libft/
-	@gcc $(CFLAG) $(SRC) $(42-Libft) $(MLX) -o $(NAME) -ggdb #-fsanitize=address
+	@make -C Libft/
+	@gcc $(CFLAG) $(SRC) $(Libft) $(MLX) -o $(NAME) -ggdb #-fsanitize=address
 
 clean :
 	@make clean -C mlx/
