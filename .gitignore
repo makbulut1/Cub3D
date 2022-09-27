@@ -5,11 +5,8 @@
 !*.h
 !map*
 /mlx/*
+!/Libft
 !/mlx/*.c
 !/mlx/*.h
 !/mlx/*.m
 !/mlx/Makefile
-Libft/*
-!/Libft/*.c
-!/Libft/*.h
-!/Libft/Makefile
