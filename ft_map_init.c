@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 16:53:06 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/27 22:20:18 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:43:21 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,10 @@ int	load_map(char *map_name, char **map)
 int	map_init(char *map_name, char **map_values)
 {
 	if (ft_strchr(map_name, '.') <= 0 || ft_memcmp(ft_strrchr(map_name, '.'), ".cub", 4) != 0)
-	{
-		ft_putendl_fd("Error\nMap extension not '.cub'", 2);
-		exit(1);
-	}
+		return (ft_map_extantion_handle());
 	if (load_map(map_name, map_values) == -1)
-	{
-		ft_putendl_fd("Error\nBad file.", 2);
-		exit(1);
-	}
+		return (ft_bad_file_handle());
 	if (*map_values[0] < 32 && *map_values[0] >= 9)
-	{
-		ft_putendl_fd("Error\nBad file.", 2);
-		exit(1);
-	}
+		return (ft_bad_character_handle());
 	return (0);
 }

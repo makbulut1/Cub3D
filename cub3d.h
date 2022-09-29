@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:06:49 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/27 16:37:09 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:40:27 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ typedef struct s_map
 }				t_map;
 
 int		map_extension_check(char *av);
-int	map_init(char *map_name, char **map_values);
+int		map_init(char *map_name, char **map_values);
 void	key_input(t_cub3d *cub3d);
-
+int		ft_map_extantion_handle(void);
+int		ft_bad_file_handle(void);
+int		ft_bad_character_handle(void);
 #endif
