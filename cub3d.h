@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:06:49 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/29 14:40:27 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/29 21:17:39 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 typedef struct cub3d
 {
 	int			x;
+	int			y;
+	int			width;
+	int			color;
 	void		*mlx;
 	void		*win;
 }			t_cub3d;
@@ -41,4 +44,5 @@ void	key_input(t_cub3d *cub3d);
 int		ft_map_extantion_handle(void);
 int		ft_bad_file_handle(void);
 int		ft_bad_character_handle(void);
+void 	ft_put_protect(t_cub3d cub3d, int x, int y, int width);
 #endif
