@@ -15,7 +15,7 @@ Libft = Libft/libft.a
 all : $(OBJ)
 	@make -C mlx/
 	@make -C Libft/
-	@gcc $(CFLAG) $(SRC) $(Libft) $(MLX) -o $(NAME) -ggdb #-fsanitize=address
+	@gcc $(CFLAG) $(SRC) $(Libft) $(MLX) -o $(NAME) -ggdb -fsanitize=address
 
 clean :
 	@make clean -C mlx/
