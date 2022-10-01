@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:06:49 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/29 21:17:39 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/09/30 16:12:10 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,7 @@ int		ft_map_extantion_handle(void);
 int		ft_bad_file_handle(void);
 int		ft_bad_character_handle(void);
 void 	ft_put_protect(t_cub3d cub3d, int x, int y, int width);
+void	ft_map_render(t_cub3d cub3d);
+void 	ft_protect(t_cub3d cub3d, int x, int y, int width, int color);
+
 #endif
