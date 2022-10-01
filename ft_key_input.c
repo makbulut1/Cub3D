@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 23:12:51 by makbulut          #+#    #+#             */
-/*   Updated: 2022/10/01 15:13:20 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/10/01 17:04:22 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ int	close_screen(t_cub3d *cub3d)
 	exit(1);
 }
 
-void	change(t_cub3d cub3d, int x, int y){
-	if ((cub3d.x <= x && x < cub3d.x + cub3d.width) && (cub3d.y <= y && y < cub3d.y + cub3d.width))
-		ft_protect(cub3d, x, y, cub3d.width, 0x0000ff);
-	ft_put_protect(cub3d, cub3d.x, cub3d.y, cub3d.width);
-}
+// void	change(t_cub3d cub3d, int x, int y){
+// 	if ((cub3d.x <= x && x < cub3d.x + cub3d.width) && (cub3d.y <= y && y < cub3d.y + cub3d.width))
+// 		ft_protect(cub3d, x, y, cub3d.width, 0x0000ff);
+// 	ft_put_map(cub3d);
+	
+// }
 
 int	key_hook(int key, t_cub3d *cub3d)
 {
@@ -34,23 +35,23 @@ int	key_hook(int key, t_cub3d *cub3d)
 		ft_putendl_fd("Game Exited", 1);
 		exit(1);
 	}
-	else if (key == 0 || key == 123)
-	{
-		cub3d->x -= cub3d->width;
-	}
-	else if (key == 1 || key == 125)
-	{
-		cub3d->y += cub3d->width;
-	}
-	else if (key == 2 || key == 124)
-	{
-		cub3d->x += cub3d->width;
-	}
-	else if (key == 13 || key == 126)
-	{
-		cub3d->y -= cub3d->width;
-	}
-	change(*cub3d, cub3d->x, cub3d->y);
+	// else if (key == 0 || key == 123)
+	// {
+	// 	cub3d->x -= cub3d->width;
+	// }
+	// else if (key == 1 || key == 125)
+	// {
+	// 	cub3d->y += cub3d->width;
+	// }
+	// else if (key == 2 || key == 124)
+	// {
+	// 	cub3d->x += cub3d->width;
+	// }
+	// else if (key == 13 || key == 126)
+	// {
+	// 	cub3d->y -= cub3d->width;
+	// }
+	// change(*cub3d, cub3d->x, cub3d->y);
 	return (0);
 }
 

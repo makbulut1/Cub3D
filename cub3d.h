@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:06:49 by makbulut          #+#    #+#             */
-/*   Updated: 2022/09/30 16:12:10 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/10/01 21:18:46 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 
 typedef struct cub3d
 {
-	int			x;
-	int			y;
+	float		x;
+	float		y;
+	int			background;
 	int			width;
 	int			color;
 	void		*mlx;
 	void		*win;
+	void		*img;
 }			t_cub3d;
 
 typedef struct s_map
@@ -44,8 +46,8 @@ void	key_input(t_cub3d *cub3d);
 int		ft_map_extantion_handle(void);
 int		ft_bad_file_handle(void);
 int		ft_bad_character_handle(void);
-void 	ft_put_protect(t_cub3d cub3d, int x, int y, int width);
-void	ft_map_render(t_cub3d cub3d);
-void 	ft_protect(t_cub3d cub3d, int x, int y, int width, int color);
-
+// void 	ft_put_protect(t_cub3d cub3d, int x, int y, int width);
+// void	ft_map_render(t_cub3d cub3d);
+// void 	ft_protect(t_cub3d cub3d, int x, int y, int width, int color);
+// void ft_put_map(t_cub3d cub3d);
 #endif

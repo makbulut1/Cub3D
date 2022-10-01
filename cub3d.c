@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:06:11 by makbulut          #+#    #+#             */
-/*   Updated: 2022/10/01 15:13:21 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/10/01 15:31:25 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,62 +51,81 @@ void ft_put_protect(t_cub3d cub3d, int x, int y, int width)
 	}
 }
 
-void ft_protect(t_cub3d cub3d, int x, int y, int width, int color)
-{
-	int x_cp;
-	int y_cp;
+// void ft_protect(t_cub3d cub3d, int x, int y, int width, int color)
+// {
+// 	int x_cp;
+// 	int y_cp;
 
-	x_cp = x;
-	y_cp = y;
-	while (y != y_cp + width)
-	{
-		if (x == x_cp + width)
-		{
-			x -= width;
-			y += 1;
-		}
-		else
-		{
-			mlx_pixel_put(cub3d.mlx, cub3d.win, x, y, color);
-			x++;
-		}
-	}
-}
+// 	x_cp = x;
+// 	y_cp = y;
+// 	while (y != y_cp + width)
+// 	{
+// 		if (x == x_cp + width)
+// 		{
+// 			x -= width;
+// 			y += 1;
+// 		}
+// 		else
+// 		{
+// 			mlx_pixel_put(cub3d.mlx, cub3d.win, x, y, color);
+// 			x++;
+// 		}
+// 	}
+// }
 
-void ft_put_map(t_cub3d cub3d)
+// void ft_put_map(t_cub3d cub3d)
+// {
+// 	int x = 0, y = 0, xo = 0, yo = 0;
+// 	int i = -1;
+// 	// int color = 0;
+// 	while (i++ < mapS)
+// 	{
+// 		if (x == mapX * 65)
+// 		{
+// 			x = 0;
+// 			y += 64;
+// 			y++;
+// 			yo++;
+// 		}
+// 		if (map1[i] == 1)
+// 		{
+// 			cub3d.color = 0x808080;
+// 		}
+// 		else
+// 		{
+// 			cub3d.color = 0xffff;
+// 		}
+// 		ft_protect(cub3d, x, y, 64, cub3d.color);
+// 		cub3d.color = 0;
+// 		x+= 64;
+// 		x++;
+// 		xo++;
+// 	}
+// }
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	int x = 0, y = 0, xo = 0, yo = 0;
-	int i = -1;
-	// int color = 0;
-	while (i++ < mapS)
-	{
-		if (x == mapX * 65)
-		{
-			x = 0;
-			y += 64;
-			y++;
-			yo++;
-		}
-		if (map1[i] == 1)
-		{
-			cub3d.color = 0x808080;
-		}
-		else
-		{
-			cub3d.color = 0xffff;
-		}
-		ft_protect(cub3d, x, y, 64, cub3d.color);
-		cub3d.color = 0;
-		x+= 64;
-		x++;
-		xo++;
-	}
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
 void ft_map_render(t_cub3d cub3d)
 {
-	mlx_clear_window(cub3d.mlx, cub3d.win);
-	ft_put_map(cub3d);
+	// mlx_clear_window(cub3d.mlx, cub3d.win);
+	t_data data;
+	data.img = mlx_new_image(cub3d.mlx, 64, 64);
+	my_mlx_pixel_put(&data, 50, 50, 0xffff);
+	mlx_put_image_to_window(cub3d.mlx, cub3d.win, cub3d.img, 390, 512);
+	// ft_put_map(cub3d);
 	
 	// ft_put_protect(cub3d, cub3d.x, cub3d.y, cub3d.width);
 }
