@@ -52,7 +52,7 @@ int	key_hook(int key, t_cub3d *cub3d)
 	else if (key == 2 || key == 124)
 	{
 		// cub3d->x += cub3d->width;
-        pa -= 0.1; if (pa < 0){pa += 2 * PI;} pdx = cos(pa) * 5; pdy = sin(pa) * 5;
+        pa += 0.1; if (pa > PI * 2){pa -= 2 * PI;} pdx = cos(pa) * 5; pdy = sin(pa) * 5;
 	}
 	else if (key == 13 || key == 126)
 	{
@@ -114,6 +114,7 @@ void ft_protect(t_cub3d cub3d, int x, int y, int width, int color, t_data *img)
 	int y_cp;
 
 	x_cp = x;
+    (void)cub3d;
 	y_cp = y;
 	while (y != y_cp + width)
 	{
@@ -148,13 +149,11 @@ void ft_put_map(t_cub3d cub3d, t_data *img)
 			yo++;
 		}
 		if (map1[i] == 1)
-		{
 			cub3d.color = 0xFFFFFFF;
-		}
+		else if (map1[i] == 32)
+			cub3d.color = 0x00000000;
 		else
-		{
 			cub3d.color = 0x0808080;
-		}
 		ft_protect(cub3d, x, y, 64, cub3d.color, img);
 		cub3d.color = 0;
 		x+= 64;
@@ -162,16 +161,26 @@ void ft_put_map(t_cub3d cub3d, t_data *img)
 		xo++;
 	}
 }
-void    ft_player_direction(t_cub3d cub3d)
+
+void ft_player_direction(float slope,int x1,int y1,float degree,t_cub3d cub3d)
 {
-    int i = 0;
-    int j = 0;
-    while (i < 100)
+    float i = 0;
+	while(x1 > 0 && x1 < 512)
     {
-        printf("%f\n", pdy);
-        mlx_pixel_put(cub3d.mlx, cub3d.win, cub3d.x + pdx + cub3d.width / 2 + j++, cub3d.y + cub3d.width / 2 + pdy + i++, 0x00ff);
+        if(degree < 90 || degree > 270)
+        {
+        	mlx_pixel_put(cub3d.mlx,cub3d.win, x1 + (cub3d.width / 2), y1 + (cub3d.width / 2) + ( slope * i), 0x00ff);
+			x1++;
+		}  
+        else
+		{
+        	mlx_pixel_put(cub3d.mlx,cub3d.win, x1 + (cub3d.width / 2), y1 + (cub3d.width / 2) - (slope * i), 0x00ff);
+			x1--;
+		}
+        i += 1;
     }
 }
+
 void    ft_render_map(t_cub3d cub3d)
 {
 	t_data	img;
@@ -182,20 +191,18 @@ void    ft_render_map(t_cub3d cub3d)
     ft_put_map(cub3d, &img);
 	mlx_put_image_to_window(cub3d.mlx, cub3d.win, img.img, 0, 0);
 	ft_put_protect(cub3d, cub3d.x, cub3d.y, cub3d.width);
-    ft_player_direction(cub3d);
-    mlx_string_put(cub3d.mlx, cub3d.win, 10, 10, 0xE03C00, "NURAY");
+    ft_player_direction(tanf(pa),cub3d.x,cub3d.y, 57.2957795 * pa, cub3d);
 }
 int	main(void)
 {
-	void	*mlx;
     t_cub3d cub3d;
 
-	cub3d.x = 512 / 2;
-	cub3d.y = 512 / 2;
+	pdx = cub3d.x = 512 / 2;
+	pdy = cub3d.y = 512 / 2;
 	cub3d.width = 8;
 	cub3d.color = 0x00ff;
 	cub3d.mlx = mlx_init();
-	cub3d.win = mlx_new_window(cub3d.mlx, 520, 520, "Hello world!");
+	cub3d.win = mlx_new_window(cub3d.mlx, 512, 512, "Hello world!");
     key_input(&cub3d);
     ft_render_map(cub3d);
 	mlx_loop(cub3d.mlx);
