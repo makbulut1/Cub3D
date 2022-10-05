@@ -6,7 +6,7 @@
 /*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:06:11 by makbulut          #+#    #+#             */
-/*   Updated: 2022/10/04 23:33:40 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/10/05 01:45:09 by makbulut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <math.h>
 #include <stdio.h> //silinebilir
 #include "Libft/libft.h"
+
 int mapX = 8, mapY = 8, mapS = 64;
 
 float pdx = 3, pdy = 0, pa;
@@ -30,13 +31,19 @@ int map1[] =
 		1, 0, 0, 0, 0, 0, 0, 1,
 		1, 1, 1, 1, 1, 1, 1, 1};
 
+
+int creat_rgb(int red, int green, int blue)
+{
+	return (red * 65536 + green * 256 + blue);
+}
+
 int close_screen(t_cub3d *cub3d)
 {
 	mlx_destroy_window(cub3d->mlx, cub3d->win);
 	exit(1);
 }
 
-int key_hook(int key, t_cub3d *cub3d)
+int	key_hook(int key, t_cub3d *cub3d)
 {
 	(void)cub3d;
 	if (key == 53)
@@ -44,43 +51,23 @@ int key_hook(int key, t_cub3d *cub3d)
 		ft_putendl_fd("Game Exited", 1);
 		exit(1);
 	}
-	else if (key == A)
+	else if (key == A || key == 123)
 	{
-		pa -= 0.1;
-		if (pa < 0)
-		{
-			pa += 2 * PI;
-		}
-		pdx = cos(pa) * 5;
-		pdy = sin(pa) * 5;
+        pa -= 0.1; if (pa < 0){pa += 2 * PI;} pdx = cos(pa) * 5; pdy = sin(pa) * 5;
 	}
-	else if (key == S)
+	else if (key == S || key == 125)
 	{
-		cub3d->y -= pdy;
-		cub3d->x -= pdx;
+        cub3d->y -= pdy;
+        cub3d->x -= pdx;
 	}
-	else if (key == D)
+	else if (key == D || key == 124)
 	{
-		pa += 0.1;
-		if (pa > PI * 2)
-		{
-			pa -= 2 * PI;
-		}
-		pdx = cos(pa) * 5;
-		pdy = sin(pa) * 5;
+        pa += 0.1; if (pa > PI * 2){pa -= 2 * PI;} pdx = cos(pa) * 5; pdy = sin(pa) * 5;
 	}
-	else if (key == W)
+	else if (key == W || key == 126)
 	{
-		cub3d->y += pdy;
-		cub3d->x += pdx;
-	}
-	else if (key == 123)
-	{
-		cub3d->x -= cub3d->width;
-	}
-	else if (key == 125)
-	{
-		cub3d->x += cub3d->width;
+        cub3d->y += pdy;
+        cub3d->x += pdx;
 	}
 	ft_map_render(*cub3d);
 	return (0);
@@ -98,6 +85,27 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
+}
+
+void ft_player_direction(float slope, float x1, float y1, float degree, t_cub3d cub3d, t_data *img)
+{
+	float i = 0;
+	while (x1 > -5 && x1 < 512)
+	{
+		if (degree < 90 || degree > 270)
+		{
+			if ((x1 > 61 && x1 < 451) && (y1 + (slope * i) > 61 && y1 + (slope * i) < 451))
+				my_mlx_pixel_put(img, x1 + (cub3d.width / 2), y1 + (cub3d.width / 2) + (slope * i), cub3d.color);
+			x1 += 0.055;
+		}
+		else
+		{
+			if ((x1 > 61 && x1 < 451) && (y1 - (slope * i) > 61 && y1 - (slope * i) < 451))
+				my_mlx_pixel_put(img, x1 + (cub3d.width / 2), y1 + (cub3d.width / 2) - (slope * i), cub3d.color);
+			x1 -= 0.055;
+		}
+		i += 0.055;
+	}
 }
 
 void ft_put_protect(t_cub3d cub3d, int x, int y, int width)
@@ -129,7 +137,10 @@ void ft_protect(t_cub3d cub3d, int x, int y, int width, int color, t_data *img)
 	static int a;
 	static int b;
 
-	// printf("(%d, %d) (%d, %d)\n", (a - x), y , x,  -(b - y));
+	static int i = 1;
+	if (color == 0xfffffff /* && b != y */) // Duvar konumlarının kordinatları alınmaya çalışılıyor.
+		printf("\x1b[33m%d - eski (%d, %d)\n\x1b[0m\x1b[31m%d - yeni(%d, %d)\n\x1b[0m",i, x, y, i, x + 65, y + 65);//	printf("(%d, %d) (%d, %d)\n", (a - x), y , x,  -(b - y));
+	i++;
 	a = x;
 	b = y;
 	x_cp = x;
@@ -149,7 +160,34 @@ void ft_protect(t_cub3d cub3d, int x, int y, int width, int color, t_data *img)
 		}
 	}
 	// if (color == 0xfffffff /* && b != y */) // Duvar konumlarının kordinatları alınmaya çalışılıyor.
-	// 	printf("(%d, %d)\n", x, y + 1);
+	// 	printf("eski (%d,-%d)\n yeni(%d,-%d)\n", x, y, x + 65, y + 65);
+}
+
+void ft_protect_player(t_cub3d cub3d, int x, int y, int width, int color, t_data *img)
+{
+	int x_cp;
+	int y_cp;
+	static int a;
+	static int b;
+
+	a = x;
+	b = y;
+	x_cp = x;
+	(void)cub3d;
+	y_cp = y;
+	while (y != y_cp + width)
+	{
+		if (x == x_cp + width)
+		{
+			x -= width;
+			y += 1;
+		}
+		else
+		{
+			my_mlx_pixel_put(img, x, y, color);
+			x++;
+		}
+	}
 }
 
 void ft_put_map(t_cub3d cub3d, t_data *img)
@@ -182,27 +220,10 @@ void ft_put_map(t_cub3d cub3d, t_data *img)
 		x++;
 		xo++;
 	}
-}
-
-void ft_player_direction(float slope, float x1, float y1, float degree, t_cub3d cub3d)
-{
-	float i = 0;
-	while (x1 > -5 && x1 < 512)
-	{
-		if (degree < 90 || degree > 270)
-		{
-			if ((x1 > 61 && x1 < 451) && (y1 + (slope * i) > 61 && y1 + (slope * i) < 451))
-				mlx_pixel_put(cub3d.mlx, cub3d.win, x1 + (cub3d.width / 2), y1 + (cub3d.width / 2) + (slope * i), cub3d.color);
-			x1 += 0.055;
-		}
-		else
-		{
-			if ((x1 > 61 && x1 < 451) && (y1 - (slope * i) > 61 && y1 - (slope * i) < 451))
-				mlx_pixel_put(cub3d.mlx, cub3d.win, x1 + (cub3d.width / 2), y1 + (cub3d.width / 2) - (slope * i), cub3d.color);
-			x1 -= 0.055;
-		}
-		i += 0.055;
-	}
+	cub3d.color = creat_rgb(29, 151, 242);
+	ft_protect_player(cub3d, cub3d.x, cub3d.y, cub3d.width, cub3d.color, img);
+	ft_player_direction(tanf(pa), cub3d.x, cub3d.y, 57.2957795 * pa, cub3d, img);
+	exit(1);
 }
 
 void ft_map_render(t_cub3d cub3d)
@@ -214,13 +235,6 @@ void ft_map_render(t_cub3d cub3d)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	ft_put_map(cub3d, &img);
 	mlx_put_image_to_window(cub3d.mlx, cub3d.win, img.img, 0, 0);
-	ft_put_protect(cub3d, cub3d.x, cub3d.y, cub3d.width);
-	ft_player_direction(tanf(pa), cub3d.x, cub3d.y, 57.2957795 * pa, cub3d);
-}
-
-int creat_rgb(int red, int green, int blue)
-{
-	return (red * 65536 + green * 256 + blue);
 }
 
 void cub3d_loop(t_map a)
