@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: makbulut <makbulut@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 08:06:11 by makbulut          #+#    #+#             */
-/*   Updated: 2022/10/05 01:45:09 by makbulut         ###   ########.fr       */
+/*   Updated: 2022/10/05 22:05:59 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <math.h>
 #include <stdio.h> //silinebilir
 #include "Libft/libft.h"
+#include "map_parse/map_parse.h"
 
 int mapX = 8, mapY = 8, mapS = 64;
 
@@ -139,7 +140,7 @@ void ft_protect(t_cub3d cub3d, int x, int y, int width, int color, t_data *img)
 
 	static int i = 1;
 	if (color == 0xfffffff /* && b != y */) // Duvar konumlarının kordinatları alınmaya çalışılıyor.
-		printf("\x1b[33m%d - eski (%d, %d)\n\x1b[0m\x1b[31m%d - yeni(%d, %d)\n\x1b[0m",i, x, y, i, x + 65, y + 65);//	printf("(%d, %d) (%d, %d)\n", (a - x), y , x,  -(b - y));
+		// printf("\x1b[33m%d - eski (%d, %d)\n\x1b[0m\x1b[31m%d - yeni(%d, %d)\n\x1b[0m",i, x, y, i, x + 65, y + 65);//	printf("(%d, %d) (%d, %d)\n", (a - x), y , x,  -(b - y));
 	i++;
 	a = x;
 	b = y;
@@ -223,7 +224,6 @@ void ft_put_map(t_cub3d cub3d, t_data *img)
 	cub3d.color = creat_rgb(29, 151, 242);
 	ft_protect_player(cub3d, cub3d.x, cub3d.y, cub3d.width, cub3d.color, img);
 	ft_player_direction(tanf(pa), cub3d.x, cub3d.y, 57.2957795 * pa, cub3d, img);
-	exit(1);
 }
 
 void ft_map_render(t_cub3d cub3d)
@@ -259,6 +259,7 @@ int main(int ac, char **av)
 
 	if (ac == 2)
 	{
+		map_control(av[1]);
 		if (map_init(av[1], &map.map_values))
 			return (-1);
 		cub3d_loop(map);

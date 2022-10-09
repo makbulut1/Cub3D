@@ -2,9 +2,13 @@ NAME = cub3d
 
 SRC = $(wildcard *.c)
 
+MAP  = map_parse/map.a
+
 OBJ = $(SRC:%.c=%.o)
 
-CFLAG = -Wall -Wextra -Werror
+CC = gcc
+
+CFLAGS = -Wall -Wextra -Werror -g
 
 MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit mlx/libmlx.a
 
@@ -12,13 +16,18 @@ MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit mlx/libmlx.a
 
 Libft = Libft/libft.a
 
-all : $(OBJ)
+all : $(OBJ) #$(OBJ1)
 	@make -C mlx/
 	@make -C Libft/
-	@gcc $(CFLAG) $(SRC) $(Libft) $(MLX) -o $(NAME)
+	@make -C map_parse/
+	@$(CC) $(CFLAGS) $(OBJ) $(MAP) -I./map_parse/map_parse.h $(Libft) $(MLX) -o $(NAME) -fsanitize=address
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
 	@make clean -C mlx/
+	@make clean -C map_parse/
 	@rm -rf *.o
 
 fclean : clean
