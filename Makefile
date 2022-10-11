@@ -16,7 +16,7 @@ MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit mlx/libmlx.a
 
 Libft = Libft/libft.a
 
-all : $(OBJ) #$(OBJ1)
+all : $(OBJ)
 	@make -C mlx/
 	@make -C Libft/
 	@make -C map_parse/
@@ -31,6 +31,8 @@ clean :
 	@rm -rf *.o
 
 fclean : clean
+	@make fclean -C Libft
+	@make fclean -C map_parse/
 	@rm -rf 
 
 re : fclean all
