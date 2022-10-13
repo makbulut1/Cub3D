@@ -1,7 +1,7 @@
 NAME = map.a
 
 SRC = map_control.c control.c error.c file.c check.c parse.c free.c space_control.c\
-zero_control.c
+zero_control.c utils.c
 
 OBJ = $(SRC:%.c=%.o)
 

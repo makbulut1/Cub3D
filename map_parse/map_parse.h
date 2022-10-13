@@ -6,7 +6,7 @@
 /*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:41:29 by iyarikan          #+#    #+#             */
-/*   Updated: 2022/10/09 10:21:51 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/10/13 19:00:41 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ void		map_check(t_game *game);
 void		check_chars(t_game *game);
 void		space_control(t_game *game);
 void		zero_control(t_game *game);
-void		extra_line(t_game *game, char *av, int *line);
-char		*get_next_line(int fd);
+char		*gnl(int fd);
+int			ft_new_line(const char *s);
+void		extra_line(char *av, t_game *game);
 
 void		free_map(t_game *game);
 void		free_new_map(t_game *game);

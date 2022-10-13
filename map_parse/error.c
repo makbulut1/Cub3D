@@ -6,7 +6,7 @@
 /*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:00:14 by iyarikan          #+#    #+#             */
-/*   Updated: 2022/10/09 12:32:19 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:59:28 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	err(t_game *game, char code)
 		ft_putendl_fd("Error!\nError: Multiple Identification in the \
 Character's Position Code!\n", 2);
 	free(game->buff);
-	//free_new_map(game);
+	free_new_map(game);
 	exit(1);
 }
 

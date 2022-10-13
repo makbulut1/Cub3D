@@ -6,13 +6,13 @@
 /*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:40:49 by iyarikan          #+#    #+#             */
-/*   Updated: 2022/10/09 11:26:25 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:43:45 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_parse.h"
 
-static size_t	ft_new_line(const char *s)
+int	ft_new_line(const char *s)
 {
 	int	i;
 	int	new_line;
@@ -53,5 +53,6 @@ t_game	*file_(char *av, int *line)
 	game->new_map = malloc(sizeof(char *) * i);
 	if (!game->new_map)
 		malloc_new_map(game);
+	extra_line(av, game);
 	return (game);
 }

@@ -6,7 +6,7 @@
 /*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 22:51:11 by iyarikan          #+#    #+#             */
-/*   Updated: 2022/10/09 11:13:21 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:57:22 by iyarikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,38 +76,58 @@ void	check_chars(t_game *game)
 	line_map(game);
 	character_control(game);
 }
-/*
-void	extra_line(t_game *game, char *av, int *line)
+
+void	extra_line(char *av, t_game *game)
 {
-	int		count;
-	int		fd;
 	int		i;
-	char	*temp;
-	
+	int		j;
+	int		fd;
+	int		count;
+	char	**temp;
+
+	i = -1;
+	count = ft_new_line(game->buff);
+	temp = (char **)malloc(sizeof(char *) * count + 1);
+	temp[count] = 0;
+	fd = open(av, O_RDWR, 0777);
+	while (++i <= count)
+		temp[i] = gnl(fd);
 	count = 0;
-	fd = open(av, O_RDONLY);
-    if (fd < 0)
- 		file_error(game, '1');
-	while (*line >= 0)	
-    {
-		temp = get_next_line(fd);
-		if (count <= 5)
+	while (temp[count])
+		count++;
+	count -= 2;
+	while (temp[count][0] == '\n')
+		count--;
+	i = -1;
+	while (temp[++i])
+	{
+		j = -1;
+		while (temp[i][++j])
 		{
-			i = -1;
-			while (temp[++i])
+			while (temp[i][j] == ' ' || temp[i][j] == '\t' || temp[i][j] == '\n')
+				j++;
+			if (temp[i][j] == 'N' || temp[i][j] == 'S' || temp[i][j] == 'W' || \
+				temp[i][j] == 'E' || temp[i][j] == 'F' || temp[i][j] == 'C')
+				break;
+			if (temp[i][j] == '1')
 			{
-				if (temp[i] == 'N' || temp[i] == 'S' || temp[i] == 'W' ||
-				temp[i] == 'E' || temp[i] == 'F' || temp[i] == 'C')
+				while (i < count)
 				{
+					if (temp[i][0] == '\n')
+					{
+						i = -1;
+						while (temp[++i])
+							free(temp[i]);
+						free(temp);
+						err(game, '1');
+					}
 					i++;
-					count++;
-					break ;
 				}
+				
 			}
 		}
-		else
-			break;
-		(*line)--;
 	}
-	
-}*/
+	while (temp[++i])
+		free(temp[i]);
+	free(temp);
+}
