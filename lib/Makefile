@@ -11,7 +11,7 @@ GET_OS := $(shell uname -s)
 
 ifeq ($(GET_OS), Darwin)
 	OS			=		MACOS
-	LINK		=		https://projects.intra.42.fr/uploads/document/document/9232/minilibx_opengl.tgz
+	LINK		=		https://projects.intra.42.fr/uploads/document/document/14370/minilibx_opengl.tgz
 	ARCHIEVE	=		minilibx_opengl.tgz
 	FOLDER		=		minilibx_opengl_20191021
 else
